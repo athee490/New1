@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+		<script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+		ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];</script>
+
+</head>
+<style>
+    /* General Styles */
+ body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+.container {
+    background-color: #fadcb5; /* Soft background color */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-left: 2.5em;
+}
+
+/* Card container */
+.card-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Card title */
+.card-title {
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    color: #2f4f4f;
+    margin-bottom: 20px;
+}
+
+/* Card header */
+.card-header {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* Card text */
+.card-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* List items */
+.card-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.card-list-item {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+/* Strong emphasis */
+.card-list-item b {
+    color: #2f4f4f;
+    font-weight: 600;
+}
+
+/* Spacing for long content */
+.card-header + .card-text, .card-text {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* Styling for chart container */
+.chart-container {
+    margin-top: 40px;
+    text-align: center;
+}
+
+/* Adjust margins for long content */
+.card-header, .card-text {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+/* Mobile responsive */
+@media only screen and (max-width: 768px) {
+    .card-container {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 24px;
+    }
+
+    .card-header {
+        font-size: 20px;
+    }
+
+    .card-text {
+        font-size: 14px;
+    }
+
+    .card-list-item {
+        font-size: 14px;
+    }
+}
+
+/* Additional style for the page */
+h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2f4f4f;
+    margin-top: 20px;
+}
+
+/* Extra styling for buttons (if you use them) */
+.button {
+    padding: 12px 20px;
+    background-color: #2f4f4f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #4c6a6b;
+}
+
+
+
+
+</style>
+<body>
+    <!-- <div class="text-gray-700 bg-cover bg-[url('https://images.pexels.com/photos/2255801/pexels-photo-2255801.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')]"> -->
+        <nav class="fixed bg-white w-full z-10 border-b border-solid border-gray-300">
+          <div class="container mx-auto px-6 py-2 flex justify-between items-center">
+            <a href="#" class="font-bold text-2xl lg:text-4xl">
+              BLOOD GROUP 
+            </a>
+            <div class="block md:hidden">
+              <button class="flex items-center px-3 py-2 border rounded text-gray-500 boder-gray-600 hiver:text-gray-800">
+                <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://wwww.w3.org/2000/svg">
+                  <title>Menu</title>
+                  <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                </svg>
+              </button>
+            </div>
+            <div class="hidden md:block">
+              <ul class="inline-flex">
+                <li>
+                  <a href="/" class="px-4 font-bold hover:text-gray-800">
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'users-profile' %}" class="px-4 font-bold hover:text-gray-800">
+                    Profile
+                  </a>
+                </li> 
+                <li>
+                  <a href="{% url 'Deploy_8' %}" class="px-4 font-bold hover:text-gray-800">
+                    Model
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'Database' %}" class="px-4 font-bold hover:text-gray-800">
+                    Model Database
+                  </a>
+                </li>
+                {% if user.is_authenticated %}
+                <li>  
+                    <a href="{% url 'logout_view' %}" class=" hover:text-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                        </svg>
+                    </a>
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <nav>
+            {% if obj %}<br><br><br><br>
+        
+            <center><div class="image-container" style="background-color: #cfe2ff;">
+                <img src="{{ obj.image.url }}" alt="Colon Adenocarcinoma Image" class="rounded-xl" style="width: 250px; height: 250px;"></center>
+            </div>
+            
+                {% if predict == 'FOUND THIS IMAGE IS A-' %}
+                <div class="container" style="background-color: #fadcb5;">
+                <div class="card-container">
+                <h2 class="card-title">Fingerprint Blood Group Detection: Blood Group A Negative</h2>
+                <p class="card-header">IDENTIFIED BLOOD GROUP: A NEGATIVE</p>
+                <p>
+                    Fingerprint blood group detection is an advanced method that uses the unique patterns found in fingerprints to identify a person's blood group. This technique 
+                </p>
+                <p>leverages biometric data along with specific scientific algorithms to detect blood type, offering a non-invasive alternative to traditional methods like blood typing.</p>
+                <h3 class="card-header">Blood Group A Negative:</h3>
+                <p>
+                    Blood Group A Negative (A-) is a rare blood type in which the blood contains A antigens on red blood cells but lacks the Rh factor. This blood type is important for 
+                </p>
+                <p>medical purposes, especially for blood transfusions and organ donations. </p>
+                <h3 style="margin-right: 20em;" class="card-header">Characteristics of Blood Group A Negative:</h3>
+                <p class="card-text">
+                    <ul class="card-list">
+                        
+                        <li class="card-list-item"><b>Lack of Rh Factor:</b> The negative sign indicates the absence of the Rh factor, which is another antigen that can be present in blood types.</li>
+                        <li class="card-list-item"><b>Compatibility:</b> Blood group A- can receive blood from donors with A- and O- blood types. It can donate to A-, A+, AB-, and AB+ recipients.</li>
+                    </ul>
+                </p>
+
+                <h3 class="card-header">Importance of Blood Group A Negative:</h3>
+                <p class="card-text">
+                    <ul class="card-list">
+                        <li style="margin-right: 4em;" class="card-list-item"><b>Rare Blood Type:</b> A- is a relatively rare blood type, making blood donations from A- individuals crucial in maintaining a stable blood supply for transfusions.</li>
+                        <li style="margin-right: 2.5em;" class="card-list-item"><b>Emergency Transfusions:</b> During emergencies, having knowledge of an individual's blood group is essential for selecting the right blood type for transfusions.</li>
+                        <li class="card-list-item"><b>Organ Transplant Compatibility:</b> Blood type compatibility plays a critical role in organ transplantation. A- patients require organs from donors with compatible blood.</li>
+                    </ul>
+                </p>
+
+                <h3 class="card-header">How Fingerprint Blood Group Detection Works:</h3>
+                <p class="card-text">
+                    The fingerprint blood group detection system analyzes specific characteristics of a person's fingerprint, which are then cross-referenced with genetic data related to blood types. Using advanced algorithms, the system accurately determines the blood group, providing a faster and more efficient alternative to traditional blood typing methods.
+                </p>
+
+                <h3 class="card-header">Benefits of Fingerprint Blood Group Detection:</h3>
+                <p class="card-text">
+                    <ul class="card-list">
+                        
+                        <li style="margin-right: 2.5em;" class="card-list-item"><b>Quick and Accurate:</b> The process is quick and provides accurate results, helping with emergency medical situations.</li>
+                        <li class="card-list-item"><b>Convenient:</b> It can be performed with simple fingerprint scanning devices, making it more accessible for a wider population.</li>
+                    </ul>
+                </p>
+                                    
+                    
+                </div>
+                <div class="chart-container">
+                    <div id="myChart"></div>
+                </div>
+            </div>
+            
+            {% elif predict == 'FOUND THIS IMAGE IS A+' %}
+            <div class="container" style="background-color: #fadcb5;">
+                <div class="card-container">
+                    <h2 class="card-title">Fingerprint Blood Group Detection</h2>
+                    <p style="margin-right: 30em;" class="card-header">IDENTIFIED BLOOD GROUP: A POSITIVE</p>
+            
+                    <h3 class="card-header">A Positive Blood Group:</h3>
+                    <p>
+                        A positive is one of the most common blood types worldwide. It belongs to the A blood group with a positive Rh factor, meaning it has the Rh protein on the surface of 
+                    </p>
+                    <p>red blood cells. This blood group is crucial in transfusions and organ donations due to its compatibility with other blood types.</p>
+                    <h3 class="card-header">Importance of A Positive Blood Group:</h3>
+                    <p class="card-text">
+                        <ul class="card-list">
+                            <li style="margin-right: 9em;" class="card-list-item"><b>Common Blood Type:</b> A positive is one of the most frequently occurring blood types, which makes it essential for blood banks and transfusions.</li>
+                            <li style="margin-right: 3em;" class="card-list-item"><b>Compatibility in Transfusion:</b> A positive individuals can receive blood from A positive, A negative, O positive, and O negative donors, providing relatively wide compatibility.</li>
+                            <li class="card-list-item"><b>Organ Donation Compatibility:</b> A positive individuals can donate organs to other A positive, AB positive, and AB negative recipients, helping save lives through organ transplants.</li>
+                        </ul>
+                    </p>
+            
+                    <h3 class="card-header">Fingerprint Blood Group Detection:</h3>
+                    <p class="card-text">
+                        Fingerprint blood group detection uses advanced technology to determine a person's blood group by analyzing the unique fingerprint patterns. Here's how it works:
+                        <ul class="card-list">
+                            <li style="margin-right: 30em;" class="card-list-item"><b>Fingerprint Collection:</b> A high-quality fingerprint scan is captured using specialized equipment.</li>
+                            <li style="margin-right: 7em;" class="card-list-item"><b>Pattern Analysis:</b> The unique ridges and patterns in the fingerprint are analyzed using machine learning algorithms to identify the genetic markers.</li>
+                            <li class="card-list-item"><b>Blood Group Correlation:</b> These patterns are then correlated with blood group antigens, such as the presence of A or B proteins, to accurately determine the blood type.</li>
+                        </ul>
+                    </p>
+            
+                    <h3 class="card-header">Advantages of Fingerprint Blood Group Detection:</h3>
+                    <p class="card-text">
+                        <ul class="card-list">
+                            <li style="margin-right: 20em;" class="card-list-item"><b>Non-invasive:</b> No need for blood drawing; this method is painless and convenient.</li>
+                            <li style="margin-right: 6.5em;" class="card-list-item"><b>Quick and Accurate:</b> It offers a fast and reliable detection method with high accuracy for blood type identification.</li>
+                            <li class="card-list-item"><b>Portable:</b> Can be performed in various settings, from hospitals to emergency sites, making it ideal for urgent medical conditions.</li>
+                        </ul>
+                    </p>
+            
+                      
+                    <p class="card-text">
+                        While this detection method is innovative, there are some precautions to consider:
+                        <ul class="card-list">
+                            <li style="margin-right: 5em;" class="card-list-item"><b>Proper Equipment:</b> The quality of the fingerprint scanner and analysis software is critical for accurate results.</li>
+                            <li style="margin-right: 3em;" class="card-list-item"><b>Expert Interpretation:</b> The collected data should be interpreted by trained professionals to avoid misinterpretation.</li>
+                            <li class="card-list-item"><b>Limitations in Rare Cases:</b> Some skin conditions or variations in fingerprint patterns may affect the accuracy of results.</li>
+                        </ul>
+                    </p>
+            
+                </div>
+                <div class="chart-container">
+                    <div id="myChart"></div>
+                </div>
+            </div>     
+                    
+            {% elif predict == 'FOUND THIS IMAGE IS AB-' %}
+            <div class="container" style="background-color: #fadcb5;">
+                <div class="card-container">
+                    <h2 class="card-title">Fingerprint Blood Group Detection</h2>
+                <p style="margin-right: 30em;" class="card-header">IDENTIFIED BLOOD GROUP: AB NEGATIVE</p>
+
+                <h3 class="card-header">AB Negative Blood Group:</h3>
+                <p class="card-text">
+                    AB negative is a rare blood type found in a small percentage of the global population. It is part of the AB group with a negative Rh factor, meaning it lacks the Rh protein on the surface of red blood cells. The uniqueness of AB negative blood group makes it valuable in transfusion medicine, especially for patients who require specific blood type compatibility.
+                </p>
+
+                <h3 class="card-header">Importance of AB Negative Blood Group:</h3>
+                <p class="card-text">
+                    <ul class="card-list">
+                        <li style="margin-right: 10em;" class="card-list-item"><b>Universal Plasma Donor:</b> People with AB negative blood can donate plasma to individuals of any blood type, making them universal plasma donors.</li>
+                        <li style="margin-right: 14em;" class="card-list-item"><b>Rare Blood Type:</b> Due to its rarity, individuals with AB negative blood may face challenges finding compatible donors during medical emergencies.</li>
+                        <li class="card-list-item"><b>Compatibility in Transfusion:</b> AB negative individuals can receive blood from only certain blood types, such as AB negative, A negative, B negative, and O negative. This limited compatibility makes blood donations and transfusions critical in maintaining healthcare standards.</li>
+                    </ul>
+                </p>
+
+                <h3 class="card-header">Fingerprint Blood Group Detection:</h3>
+                <p class="card-text">
+                    Recent advancements in technology have led to innovative methods of detecting blood groups using fingerprint analysis. This non-invasive method involves analyzing unique patterns in a person’s fingerprint to determine their blood type. Here's how the fingerprint blood group detection works:
+                    <ul class="card-list">
+                        <li class="card-list-item"><b>Fingerprint Collection:</b> A high-quality scan of the fingerprint is captured using specialized equipment.</li>
+                        <li class="card-list-item"><b>Pattern Analysis:</b> The unique ridge patterns in the fingerprint are analyzed using advanced algorithms and machine learning techniques.</li>
+                        <li class="card-list-item"><b>Blood Group Correlation:</b> The patterns are then correlated with genetic markers that indicate the presence of specific blood group antigens, allowing accurate determination of the blood type.</li>
+                    </ul>
+                </p>
+
+                <h3 class="card-header">Advantages of Fingerprint Blood Group Detection:</h3>
+                <p class="card-text">
+                    <ul class="card-list">
+                        <li class="card-list-item"><b>Non-invasive:</b> The process does not require drawing blood, making it painless and convenient.</li>
+                        <li class="card-list-item"><b>Quick and Accurate:</b> Fingerprint analysis offers a fast and reliable way to detect blood groups, with high accuracy.</li>
+                        <li class="card-list-item"><b>Portable:</b> This method can be carried out in various settings, from medical facilities to remote locations, making it a versatile tool in emergency care.</li>
+                    </ul>
+                </p>
+
+                <h3 class="card-header">Precautions:</h3>
+                <p class="card-text">
+                    While fingerprint blood group detection is a promising technology, it is essential to ensure the following:
+                    <ul class="card-list">
+                        <li class="card-list-item"><b>Proper Equipment:</b> Accurate results depend on the quality of the fingerprint scanner and the analysis software used.</li>
+                        <li class="card-list-item"><b>Expert Interpretation:</b> The data obtained from fingerprint analysis should be interpreted by trained professionals to avoid misinterpretation and incorrect conclusions.</li>
+                        <li class="card-list-item"><b>Limitations in Rare Cases:</b> In some rare cases, fingerprint blood group detection may not work as effectively due to factors like skin conditions or variations in fingerprint patterns.</li>
+                    </ul>
+                </p>
+
+            <div class="chart-container">
+                <div id='myChart'></div>
+            </div>
+            
+            {% elif predict == 'FOUND THIS IMAGE IS AB+' %}
+            <div class="container" style="background-color: #fadcb5;">
+                <div class="card-container">
+                    <h2 class="card-title">AB Positive Blood Group Detection</h2>
+                <p class="card-header">IDENTIFIED AS AB POSITIVE BLOOD GROUP</p>
+
+                <h3 class="card-header">Blood Group Detection Using Fingerprint Technology:</h3>
+                <p class="card-text">
+                    Fingerprint-based blood group detection is an innovative method that uses the unique patterns in a person's fingerprint to identify their blood type. This method leverages advanced biometric technology to analyze fingerprints and match them with blood type markers in a database.
+                </p>
+
+                <h3 class="card-header">AB Positive Blood Group Characteristics:</h3>
+                <p class="card-text">
+                    AB positive is a rare blood group that is part of the ABO and Rh blood group systems. Individuals with AB positive blood are considered universal plasma donors and can receive blood from all other ABO blood groups. Below are some key features:
+                    <ul class="card-list">
+                        <li class="card-list-item"><b>Universal Plasma Donors:</b> People with AB positive blood can donate plasma to all other blood types, making them highly valuable in medical treatments.</li>
+                        <li class="card-list-item"><b>Can Receive Blood from All Groups:</b> AB positive individuals can receive blood from any other ABO group (A, B, AB, O), making them universal recipients in transfusions.</li>
+                        <li class="card-list-item"><b>Rare Blood Group:</b> AB positive is relatively rare, with only about 5-6% of the world’s population having this blood type.</li>
+                    </ul>
+                </p>
+
+                <h3 class="card-header">How Fingerprint Blood Group Detection Works:</h3>
+                <p class="card-text">
+                    The fingerprint blood group detection process involves scanning a fingerprint using a high-resolution sensor. The unique features of the fingerprint, such as ridge patterns and minutiae points, are then analyzed and matched with a database of blood group markers. This technology can quickly and accurately identify a person’s blood type without the need for traditional blood tests.
+                    <ul class="card-list">
+                        
+                        <li class="card-list-item"><b>Step 1:</b> The fingerprint is processed to extract key features and patterns.</li>
+                        <li class="card-list-item"><b>Step 2:</b> The extracted data is compared against a database to determine the blood type.</li>
+                        <li class="card-list-item"><b>Step 3:</b> The blood group is identified and displayed, with AB positive being one of the possible outcomes.</li>
+                    </ul>
+                </p>
+
+                <h3 class="card-header">Advantages of Fingerprint-Based Blood Group Detection:</h3>
+                <p class="card-text">
+                    Using fingerprints for blood group detection offers several advantages:
+                    <ul class="card-list">
+                        <li class="card-list-item"><b>Non-invasive:</b> Unlike traditional blood tests, fingerprint detection is non-invasive and does not require a blood sample.</li>
+                        <li class="card-list-item"><b>Quick Results:</b> Blood group identification can be completed quickly, offering results within minutes.</li>
+                        <li class="card-list-item"><b>Highly Accurate:</b> Fingerprint recognition is a precise method of identifying blood types, with minimal chances of errors.</li>
+                        <li class="card-list-item"><b>Convenient:</b> The process is simple and can be performed with minimal equipment, making it easily accessible in various settings.</li>
+                    </ul>
+                </p>
+
+                <h3 class="card-header">Conclusion:</h3>
+                <p class="card-text">
+                    The fingerprint blood group detection technology offers a groundbreaking approach to blood type identification, making the process quicker, easier, and non-invasive. With the ability to identify blood types like AB positive efficiently, this method has the potential to revolutionize blood testing in medical fields and emergency situations.
+                </p>
+
+            <div class="chart-container">
+                <div id='myChart'></div>
+            </div>
+             
+           
+            
+                        
+            {% elif predict == 'FOUND THIS IMAGE IS B-' %}
+            <div class="container" style="background-color: #fadcb5;">
+                <div class="card-container">
+                    <h2 class="card-title">Blood Group Detection: B Negative</h2>
+                <p class="card-header">IDENTIFIED BLOOD GROUP: B NEGATIVE</p>
+
+                <h3 class="card-header">Understanding Blood Group B Negative:</h3>
+                <p class="card-text">
+                    Blood Group B Negative is one of the rarer blood types in the human population. It is part of the ABO blood group system and is determined by the presence or absence of specific antigens and antibodies in the blood.
+                    <ul class="card-list">
+                        <li class="card-list-item"><b>Blood Type B:</b> People with blood group B have B antigens on the surface of their red blood cells and anti-A antibodies in their plasma.</li>
+                        <li class="card-list-item"><b>Rh Negative:</b> Individuals with B Negative blood lack the Rh factor, which is an additional antigen present in some people's blood. This means that people with B Negative blood can only receive B Negative or O Negative blood during transfusions.</li>
+                    </ul>
+                </p>
+
+                <h3 class="card-header">Fingerprint Blood Group Detection:</h3>
+                <p class="card-text">
+                    Recent advancements in medical technology have made it possible to detect blood types, including B Negative, using fingerprint patterns. This innovative method involves analyzing the ridge patterns on the fingertips to correlate with blood group characteristics. It provides a quick and non-invasive method for identifying a person's blood type.
+                    <ul class="card-list">
+                        <li class="card-list-item"><b>Fingerprint Analysis:</b> By examining the unique ridges and loops in a fingerprint, specialized software can determine patterns that correlate with certain blood groups, including B Negative.</li>
+                        <li class="card-list-item"><b>Non-Invasive Testing:</b> This method does not require blood samples, making it a faster and more convenient approach compared to traditional blood typing.</li>
+                        <li class="card-list-item"><b>Accuracy:</b> Although still in the research phase, fingerprint-based blood group detection shows promise in providing accurate results for B Negative and other blood groups.</li>
+                    </ul>
+                </p>
+
+                <h3 class="card-header">Importance of Blood Group Identification:</h3>
+                <p class="card-text">
+                    Knowing your blood type is essential for various medical reasons, including:
+                    <ul class="card-list">
+                        <li class="card-list-item"><b>Blood Transfusions:</b> It ensures compatibility during blood transfusions, reducing the risk of complications.</li>
+                        <li class="card-list-item"><b>Pregnancy:</b> For Rh-negative individuals, knowing blood type is crucial in preventing Rh incompatibility between mother and fetus.</li>
+                        <li class="card-list-item"><b>Organ Transplants:</b> Blood type compatibility plays a vital role in organ transplantation procedures.</li>
+                    </ul>
+                </p>
+
+                <h3 class="card-header">Symptoms or Conditions Related to Blood Group B Negative:</h3>
+                <p class="card-text">
+                    Blood group B Negative is generally not associated with specific symptoms or conditions. However, it is important to note:
+                    <ul class="card-list">
+                        <li class="card-list-item"><b>Rh Negative Considerations:</b> Rh-negative individuals may need special care during pregnancy to avoid Rh incompatibility, which can affect the health of the baby.</li>
+                        <li class="card-list-item"><b>Blood Donations:</b> B Negative blood is in high demand due to its rarity, and donations are crucial for emergency situations and surgeries.</li>
+                    </ul>
+                </p>
+
+            <div class="chart-container">
+                <div id='myChart'></div>
+            </div>
+            
+            {% elif predict == 'FOUND THIS IMAGE IS B+' %}
+            <div class="container" style="background-color: #fadcb5;">
+                <div class="card-container">
+
+                    <h2 class="card-title">Fingerprint Blood Group Detection</h2>
+                    <p class="card-header">BLOOD GROUP IDENTIFIED AS B POSITIVE</p>
+                    
+                    <h3 class="card-header">Blood Group B Positive:</h3>
+                    <p class="card-text">
+                        Blood group B positive (B+) is one of the eight major blood types. It is determined by the presence of B antigens on the surface of red blood cells and the Rh factor (positive in this case). The B+ blood group is relatively common and is essential for blood transfusions, organ transplants, and compatibility tests.
+                    </p>
+                    
+                    <h3 class="card-header">Fingerprint-Based Blood Group Detection:</h3>
+                    <p class="card-text">
+                        Fingerprint-based blood group detection is a cutting-edge technique that uses biometric fingerprints to identify a person’s blood type. This method leverages the unique patterns found in fingerprints and compares them with a database of known blood type fingerprints.
+                        <ul class="card-list">
+                            <li class="card-list-item"><b>Non-invasive Method:</b> The process is entirely non-invasive, as it only requires scanning a fingerprint to identify the blood type.</li>
+                            <li class="card-list-item"><b>High Accuracy:</b> The system is highly accurate, using advanced algorithms and fingerprint data to match blood type information.</li>
+                            <li class="card-list-item"><b>Fast Results:</b> Blood group identification using fingerprints is faster compared to traditional blood testing methods.</li>
+                            <li class="card-list-item"><b>Convenient:</b> This technique can be used for quick identification in emergency situations, especially when blood transfusions are needed immediately.</li>
+                        </ul>
+                    </p>
+                    
+                    <h3 class="card-header">Benefits of B Positive Blood Group:</h3>
+                    <p class="card-text">
+                        Having a B+ blood type comes with several benefits:
+                        <ul class="card-list">
+                            <li class="card-list-item"><b>Compatibility for Blood Transfusions:</b> B+ blood can donate to other B+ and AB+ blood recipients. It can receive blood from B+, B-, O+, and O- donors.</li>
+                            <li class="card-list-item"><b>Health Considerations:</b> People with B+ blood should be cautious of certain health conditions and consult with their healthcare providers regarding specific needs for blood donations or transfusions.</li>
+                        </ul>
+                    </p>
+                    
+                    <h3 class="card-header">Potential Uses of Blood Group Detection Technology:</h3>
+                    <p class="card-text">
+                        This advanced fingerprint-based technology has various practical applications:
+                        <ul class="card-list">
+                            <li class="card-list-item"><b>Medical Emergencies:</b> Fast and accurate identification of blood type for immediate medical treatment, especially in emergency situations like accidents or surgeries.</li>
+                            <li class="card-list-item"><b>Blood Donation Drives:</b> The technology can streamline blood donation processes, making it easier to identify compatible blood donors.</li>
+                            <li class="card-list-item"><b>Personalized Healthcare:</b> It can assist in creating personalized health records and managing blood type-specific medical treatments.</li>
+                        </ul>
+                    </p>
+                    
+
+            <div class="chart-container">
+                <div id='myChart'></div>
+            </div>
+            {% elif predict == 'FOUND THIS IMAGE IS O-' %}
+            <div class="container" style="background-color: #fadcb5;">
+                <div class="card-container">
+
+
+                    <h2 class="card-title">Fingerprint Blood Group Detection</h2>
+                    <p class="card-header">IDENTIFIED BLOOD GROUP: O NEGATIVE</p>
+                    
+                    <h3 class="card-header">What is O Negative Blood Group?</h3>
+                    <p class="card-text">
+                        O Negative is a universal donor blood group, meaning individuals with this blood type can donate blood to any other blood group. However, it can only receive blood from other O Negative individuals. This rare blood type is essential for transfusions, especially in emergencies and for individuals with rare blood types. 
+                    </p>
+                    
+                    <h3 class="card-header">Characteristics of O Negative Blood:</h3>
+                    <p class="card-text">
+                        Individuals with O Negative blood have the following characteristics:
+                        <ul class="card-list">
+                            <li class="card-list-item"><b>Universal Donor:</b> O Negative is the most in-demand blood type for transfusions.</li>
+                            <li class="card-list-item"><b>Compatibility:</b> O Negative blood can be transfused to any of the other blood groups (A, B, AB, O), making it highly valuable in medical emergencies.</li>
+                            <li class="card-list-item"><b>Rarity:</b> Only about 2-3% of the population has O Negative blood, making it a rare and highly sought-after blood type.</li>
+                            <li class="card-list-item"><b>Immune System:</b> People with O Negative blood may have a slightly higher resistance to certain diseases, though this can vary based on individual health conditions.</li>
+                        </ul>
+                    </p>
+                    
+                    <h3 class="card-header">Symptoms Indicating O Negative Blood Group:</h3>
+                    <p class="card-text">
+                        There are no specific symptoms directly related to having an O Negative blood group. However, individuals with O Negative blood may require special attention during blood transfusions. Key concerns include:
+                        <ul class="card-list">
+                            <li class="card-list-item"><b>Blood Type Identification:</b> Accurate blood group detection is critical in medical procedures, such as blood transfusions, organ transplantation, and pregnancy care.</li>
+                            <li class="card-list-item"><b>Increased Need for Donations:</b> Because of its universal donor status, O Negative blood is in constant demand, and regular donation is encouraged.</li>
+                            <li class="card-list-item"><b>Crossmatch Testing:</b> Before transfusions, O Negative individuals should undergo crossmatch testing to ensure compatibility with the recipient’s blood.</li>
+                        </ul>
+                    </p>
+                    
+                    <h3 class="card-header">Importance of Fingerprint Blood Group Detection:</h3>
+                    <p class="card-text">
+                        Fingerprint blood group detection is a modern, innovative method to identify a person's blood type using biometric characteristics, such as fingerprints. This technique can provide:
+                        <ul class="card-list">
+                            <li class="card-list-item"><b>Quick Identification:</b> Fingerprints are unique to every individual, and combining them with blood group detection technology offers a quick, reliable method to determine blood type.</li>
+                            <li class="card-list-item"><b>Non-Invasive Method:</b> Unlike traditional blood tests, fingerprint-based detection is non-invasive, making it a more comfortable option for individuals.</li>
+                            <li class="card-list-item"><b>Improved Accuracy:</b> By using biometric data, the likelihood of errors in blood group identification is reduced, ensuring accurate medical records.</li>
+                        </ul>
+                    </p>
+                    
+
+            <div class="chart-container">
+                <div id='myChart'></div>
+            </div>
+            {% elif predict == 'FOUND THIS IMAGE IS O+' %}    
+            
+            <div class="container" style="background-color: #fadcb5;">
+                <div class="card-container">
+                    <h2 class="card-title">Fingerprint Blood Group Detection</h2>
+            <p class="card-header">IDENTIFIED AS O POSITIVE BLOOD GROUP</p>
+
+            <h3 class="card-header">O Positive Blood Group Characteristics:</h3>
+            <p class="card-text">
+                The O positive blood group is one of the most common blood types, and it is considered a universal donor for plasma. Key characteristics of this blood type include:
+                <ul class="card-list">
+                    <li class="card-list-item"><b>Compatibility:</b> O positive can donate plasma to anyone with positive Rh factor blood groups, including A+, B+, AB+, and O+.</li>
+                    <li class="card-list-item"><b>Donor Limitations:</b> While O positive individuals can donate plasma to all Rh-positive blood types, they can only receive blood from other O positive and O negative individuals.</li>
+                    <li class="card-list-item"><b>Prevalence:</b> O positive is the most common blood type, found in approximately 37.5% of the population worldwide.</li>
+                    <li class="card-list-item"><b>Fingerprint Detection:</b> Recent advancements in fingerprint blood group detection methods have enabled the identification of blood types like O positive from unique fingerprint patterns, improving identification accuracy.</li>
+                </ul>
+            </p>
+
+            <h3 class="card-header">How Fingerprint Blood Group Detection Works:</h3>
+            <p class="card-text">
+                Fingerprint blood group detection is a cutting-edge technology that identifies blood types by analyzing specific patterns found in fingerprint ridges. This method involves:
+                <ul class="card-list">
+                    <li class="card-list-item"><b>Analysis of Fingerprint Patterns:</b> Fingerprint ridges and sweat glands contain biomarkers that correlate with a person's blood type, including antigen patterns linked to blood groups.</li>
+                    <li class="card-list-item"><b>High Accuracy:</b> Modern algorithms and biometric tools allow precise matching of fingerprint features with known blood type data, offering an alternative to traditional blood typing methods.</li>
+                    <li class="card-list-item"><b>Non-Invasive:</b> This method is completely non-invasive, requiring only a fingerprint scan to determine the blood group.</li>
+                </ul>
+            </p>
+
+            <h3 class="card-header">Importance of O Positive Blood Group:</h3>
+            <p class="card-text">
+                As one of the most common and important blood types, O positive plays a vital role in medical procedures, such as:
+                <ul class="card-list">
+                    <li class="card-list-item"><b>Blood Transfusion:</b> O positive blood is in high demand for transfusions, particularly for patients with positive blood types.</li>
+                    <li class="card-list-item"><b>Emergency Situations:</b> Due to its universal donor potential for plasma, O positive blood can be a life-saving resource in emergencies.</li>
+                    <li class="card-list-item"><b>Organ Transplants:</b> O positive individuals are often preferred as organ donors for recipients with compatible blood groups.</li>
+                </ul>
+            </p>
+
+            <h3 class="card-header">Conclusion:</h3>
+            <p class="card-text">
+                Fingerprint blood group detection is an innovative approach that simplifies the identification of blood groups like O positive. This technology holds great promise for medical diagnostics and transfusion procedures, offering a reliable and non-invasive method of blood type determination.
+            </p>
+
+            
+
+            <div class="chart-container">
+                <div id='myChart'></div>
+            </div>
+
+                    
+
+{% endif %}
+{% endif %}
+
+</body>
+
+</html>
